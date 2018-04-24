@@ -9,6 +9,7 @@ class Stuff extends Component {
      //this.state={inputfield: "no value"};
      this.stepName="";
      this.userUnit="";
+     this.test="";
      this.handleClick = this.handleClick.bind(this);
      this.updateInputValue = this.updateInputValue.bind(this);
     }
@@ -17,12 +18,27 @@ class Stuff extends Component {
       alert("input "+ this.stepName+"/"+this.userUnit);
     }
 
+    testClick() {
+      axios.get('http://localhost:8089/tempTest?input='+this.test)
+        .then(function (response) {
+          alert(response);
+          console.log(response);
+        })
+        .catch(function (error) {
+          alert(error);
+          console.log(error);
+        });
+    }
+
     updateInputValue(evt) {
       this.stepName= evt.target.value;
     }
 
     updateInputValue2(evt) {
       this.userUnit=evt.target.value;
+    }
+    updateInputValue3(evt) {
+      this.test=evt.target.value;
     }
 
 	  render() {
@@ -52,7 +68,14 @@ class Stuff extends Component {
                     </textarea>
                   </form>
 
-                  <p> 전체 마이그레이션 (user-> calendar -> schedule) <button class="ui button active">Trigger</button> </p>
+                  <p> 전체 마이그레이션 (user-> calendar -> schedule) </p>
+
+
+                  <div class="ui focus input">
+                    <input type="text" placeholder="user select 단위" onChange={evt=> this.updateInputValue3(evt)}/>
+                  </div>
+                  <button class="ui button active" onClick={this.testClick}>Trigger</button>
+
                   <form class="ui form">
                     <textarea placeholder="Tell us more" rows="3">
                     </textarea>
